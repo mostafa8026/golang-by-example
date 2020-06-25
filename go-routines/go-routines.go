@@ -6,15 +6,13 @@ import (
 )
 
 func main() {
-	go sayHello()
-	time.Sleep(100 * time.Millisecond)
 
 	var msg = "Hello anonymously"
 	go func() {
 		fmt.Println(msg)
 	}()
-	msg = "Goodbye anonymously"
 	time.Sleep(100 * time.Millisecond)
+	msg = "Goodbye anonymously"
 }
 
 func sayHello() {
