@@ -45,4 +45,11 @@ func main() {
 	fmt.Printf("%v, %T\n", l, l)
 	l = strconv.Itoa(i)
 	fmt.Printf("%v, %T", l, l)
+
+	var m int
+	k = 42.5
+	//m = k this assignment got you a compiler error, because go is not gonna risk the
+	// possibility of losing information through that conversion.
+	m = int(k) // this is your decide and everything is ok. (explicit conversion)
+	fmt.Printf("%v, %T\n", m, m)
 }
