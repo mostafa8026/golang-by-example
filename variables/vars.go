@@ -5,6 +5,19 @@ import (
 	"strconv"
 )
 
+// package scope:
+var myPackageScopeVariable int = 42
+
+// MyExportedVariable exported so it can be used by all othe source files globally
+var MyExportedVariable int = 43
+
+//we have no private scope.
+//Naming conventions:
+// - pascal or camelCase
+// - - Capitalize acronums (HTTP, URL, ID)
+// - as short as possible
+// - - longer names for longer lives
+
 // we can't use := in the package level.
 var i int = 27
 
