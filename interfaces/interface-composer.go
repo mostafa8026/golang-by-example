@@ -6,13 +6,13 @@ import (
 )
 
 func main() {
-	var bwc WriterCloser = NewBufferedWriteCloser()
+	var bwc WriterFlusher = NewBufferedWriteFlusher()
 	bwc.Write([]byte("Hello, this is my composer interface  yay."))
 	bwc.Flush()
 }
 
-func NewBufferedWriteCloser() *BufferedWriterCloser {
-	return &BufferedWriterCloser{
+func NewBufferedWriteFlusher() *BufferedWriterFlusher {
+	return &BufferedWriterFlusher{
 		buffer: &bytes.Buffer{},
 	}
 }
@@ -25,16 +25,16 @@ type Flusher interface {
 	Flush() error
 }
 
-type WriterCloser interface {
+type WriterFlusher interface {
 	Writer
 	Flusher
 }
 
-type BufferedWriterCloser struct {
+type BufferedWriterFlusher struct {
 	buffer *bytes.Buffer
 }
 
-func (bwc *BufferedWriterCloser) Write(data []byte) (int, error) {
+func (bwc *BufferedWriterFlusher) Write(data []byte) (int, error) {
 	n, err := bwc.buffer.Write(data)
 	if err != nil {
 		return 0, err
@@ -54,7 +54,7 @@ func (bwc *BufferedWriterCloser) Write(data []byte) (int, error) {
 	return n, nil
 }
 
-func (bwc *BufferedWriterCloser) Flush() error {
+func (bwc *BufferedWriterFlusher) Flush() error {
 	for bwc.buffer.Len() > 0 {
 		data := bwc.buffer.Next(8)
 		_, err := fmt.Println(string(data))
